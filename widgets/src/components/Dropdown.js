@@ -8,13 +8,21 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
         // 이벤트 버블링이 일어나는 순서는 addEventListner로 붙혀준 이벤트 먼저 일어난 후에
         // 리엑트의 이벤트가 실행됨. 이해가 안되면 Dropdown 컴포넌트 내부의 모든 click 이벤트에
         // log 붙여서 실행순서를 확인해보자
-        document.body.addEventListener('click', (event) => {
+        const onBodyClick = (event) => {
             if (ref.current.contains(event.target)) {
                 return;
             }
             setOpen(false)
-        })
-        console.log('what')
+        }
+
+        document.body.addEventListener('click', onBodyClick)
+
+        // cleanUp Func :디펜던시 argument로 빈 배열을 넘겨줬기 때문에 return을
+        // 클린업 함수로 사용할 수 있음
+        return () => {
+            document.body.removeEventListener('click', onBodyClick)
+        }
+        // Empty Array Dependency works only once when its component initially rendered
     }, [])
 
 
