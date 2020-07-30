@@ -5,40 +5,43 @@ import axios from 'axios'
 
 const Search = () => {
   const [term, setTerm] = useState("");
+  const [debouncedTerm, setDebouncedTerm] = useState(term)
   const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      console.log('timer set')
+      setDebouncedTerm(term);
+    }, 500)
+
+    return () => {
+      console.log('return')
+      clearTimeout(timerId);
+    }
+  }, [term])
+
 
   useEffect(() => {
     // wikipedia api func
     const search = async () => {
+      console.log('searching')
       const { data } = await axios.get('https://ko.wikipedia.org/w/api.php', {
         params: {
           action: 'query',
           list: 'search',
           origin: "*",
           format: 'json',
-          srsearch: term,
+          srsearch: debouncedTerm,
         }
-      })
+      });
       setResult(data.query.search);
-    }
-
-    if (term && !result.length) {
+    };
+    if (debouncedTerm) {
       search()
-    } else {
-      // if there were no key stroke then do search func after 500ms.
-      const timeoutId = setTimeout(() => {
-        if (term) {
-          search();
-        }
-      }, 500)
-
-      return () => {
-        clearTimeout(timeoutId);
-      }
-
-
     }
-  }, [term])
+  }, [debouncedTerm])
+
+
 
   const renderedResult = result.map((result) => {
     return (
