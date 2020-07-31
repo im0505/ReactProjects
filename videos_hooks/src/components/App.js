@@ -3,38 +3,21 @@ import SearchBar from "./SearchBar";
 import youtube from "../apis/youtube";
 import VideoList from "./VideoList";
 import VideoDetail from "./VideoDetail";
-
-const KEY = "AIzaSyCxKI74jzk8n1g3HxH8ScX75mFHN1p07Zg";
+import useVideos from '../hooks/useVideos'
 
 const App = () => {
-  const [videos, setVideos] = useState([])
   const [selecteVideo, setSelecteVideo] = useState(null)
+  const [videos, search] = useVideos('');
 
-  // useEffect(() => {
-  //   onTermSubmit('');
-  // }, [])
 
-  const onTermSubmit = async (term) => {
-    const response = await youtube.get("/search", {
-      params: {
-        q: term,
-        part: "snippet",
-        maxResults: 5,
-        key: KEY,
-      },
-    });
+  useEffect(() => {
 
-    setVideos(response.data.items);
-    setSelecteVideo(response.data.items[0])
-  };
-
-  const onVideoSelect = (video) => {
-    setSelecteVideo(video)
-  };
+    setSelecteVideo(videos[0])
+  }, [videos])
 
   return (
     <div className="ui container">
-      <SearchBar onFormSubmit={onTermSubmit} />
+      <SearchBar onFormSubmit={search} />
       <div className="ui grid">
         <div className="ui row">
           <div className="eleven wide column">
@@ -42,7 +25,9 @@ const App = () => {
           </div>
           <div className="five wide column">
             <VideoList
-              onVideoSelect={onVideoSelect}
+              // 받는 인지가 하나인 경우 다음과 같이 리팩토링 할 수 있음
+              //  (video) => { setSelecteVideo(video) 
+              onVideoSelect={setSelecteVideo}
               videos={videos}
             />
           </div>
