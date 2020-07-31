@@ -10,12 +10,10 @@ const Search = () => {
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      console.log('timer set')
       setDebouncedTerm(term);
     }, 500)
 
     return () => {
-      console.log('return')
       clearTimeout(timerId);
     }
   }, [term])
@@ -24,7 +22,6 @@ const Search = () => {
   useEffect(() => {
     // wikipedia api func
     const search = async () => {
-      console.log('searching')
       const { data } = await axios.get('https://ko.wikipedia.org/w/api.php', {
         params: {
           action: 'query',
