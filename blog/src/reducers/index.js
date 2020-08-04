@@ -1,4 +1,8 @@
 import { combineReducers } from "redux";
+import postsReducers from "./postReducers";
+import usersReducers from "./usersReducers";
+
 export default combineReducers({
-  dummyReducer: () => "this is a temporary reducer",
+  posts: postsReducers,
+  users: usersReducers,
 });
