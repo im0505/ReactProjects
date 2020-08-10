@@ -1,0 +1,38 @@
+{
+  "stream": [
+    {
+      "title": "MyStream",
+      "description": "This is a great Stream",
+      "id": 1
+    },
+    {
+      "title": "fetch something",
+      "description": "ffffff",
+      "id": 2
+    },
+    {
+      "title": "this has id",
+      "description": "this is made by me",
+      "userId": "110377907318230617940",
+      "id": 3
+    },
+    {
+      "title": "new thang",
+      "description": "changed router",
+      "userId": "110377907318230617940",
+      "id": 4
+    },
+    {
+      "title": "Programmatic navigation",
+      "description": "you should not see this on the form page!!",
+      "userId": "110377907318230617940",
+      "id": 5
+    },
+    {
+      "title": "Me Streaming Component Reuse",
+      "description": "Watch me refactor some component",
+      "userId": "110377907318230617940",
+      "id": 6
+    }
+  ]
+}
